@@ -30,8 +30,7 @@ namespace Psychology_RequestResponse.Rabbit
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     var result = JsonConvert.DeserializeObject<InterdepartResponse>(message);
-                    System.Console.WriteLine($"id = {result.Id}; StatusId = {result.InterdepartStatusId}");
-                    // Verification(result);
+                    Update(result);
                 };
                 channel.BasicConsume(queue: Settings.KeyResponse,
                                      autoAck: true,
@@ -41,11 +40,11 @@ namespace Psychology_RequestResponse.Rabbit
                 Console.ReadLine();
             }
         }
-        private void AddSom(InterdepartResponse interdepart)
+        private void Update(InterdepartResponse interdepart)
         {
             try
             {
-                string Sql = $"Insert into InterdepartRequests (InterdepartStatusId) values ({interdepart.InterdepartStatusId}) where Id = {interdepart.Id}"; 
+                string Sql = $"update InterdepartRequests set InterdepartStatusId = {interdepart.InterdepartStatusId} where Id = {interdepart.Id}"; 
                 MySqlConnection connection = new MySqlConnection("Server=localhost; Database=psychologyDB; Uid=psyappuser; Password=password");
                 MySqlCommand command = new MySqlCommand(Sql, connection);
                 connection.Open();
