@@ -6,8 +6,8 @@ namespace Psychology_RequestResponse
     {
         static void Main(string[] args)
         {
-            // ProviderRebbit rabbit = new ProviderRebbit();
-            // rabbit.Received();
+            Rabbit.Rabbit rabbit = new Rabbit.Rabbit();
+            rabbit.Received();
         }
     }
 }
