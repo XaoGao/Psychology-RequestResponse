@@ -44,7 +44,10 @@ namespace Psychology_RequestResponse.Rabbit
         {
             try
             {
-                string Sql = $"update InterdepartRequests set InterdepartStatusId = {interdepart.InterdepartStatusId}, Request = {interdepart.Request}, Response = {DateTime.Now} where Id = {interdepart.Id}"; 
+                DateTime theDate = DateTime.Now;
+                string response = theDate.ToString("yyyy-MM-dd H:mm:ss");
+
+                string Sql = $"update InterdepartRequests set InterdepartStatusId = {interdepart.InterdepartStatusId}, Request = '{interdepart.Request}', Response = '{response}' where Id = {interdepart.Id}"; 
                 MySqlConnection connection = new MySqlConnection("Server=localhost; Database=psychologyDB; Uid=psyappuser; Password=password");
                 MySqlCommand command = new MySqlCommand(Sql, connection);
                 connection.Open();
